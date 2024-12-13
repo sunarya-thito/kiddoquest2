@@ -73,92 +73,96 @@ class _GameOverScreenState extends State<GameOverScreen> {
         .score
         .value
         .compareTo((a as CompetitivePlayer).score.value));
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: CompetitiveBackgroundPattern(),
-        ),
-        Positioned.fill(
-          child: ScrollConfiguration(
-            behavior: ScrollConfiguration.of(context).copyWith(
-              dragDevices: {
-                PointerDeviceKind.touch,
-                PointerDeviceKind.mouse,
-              },
-            ),
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(100),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Transform.scale(
-                    scale: 0.9,
-                    child: StageLeaderboard(game: game),
-                  ),
-                  const SizedBox(height: 100),
-                  DefaultTextStyle(
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontFamily: 'MoreSugar',
+    return MusicScene(
+      music: bgmVictory,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: CompetitiveBackgroundPattern(),
+          ),
+          Positioned.fill(
+            child: ScrollConfiguration(
+              behavior: ScrollConfiguration.of(context).copyWith(
+                dragDevices: {
+                  PointerDeviceKind.touch,
+                  PointerDeviceKind.mouse,
+                },
+              ),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(100),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Transform.scale(
+                      scale: 0.9,
+                      child: StageLeaderboard(game: game),
                     ),
-                    child: Text('Scroll ke bawah untuk melihat daftar lengkap'),
-                  ),
-                  RepeatedAnimationBuilder(
-                    start: 0.0,
-                    end: 1.0,
-                    duration: Duration(milliseconds: 500),
-                    mode: RepeatMode.pingPong,
-                    curve: Curves.easeInOut,
-                    builder: (context, value, child) {
-                      return Transform.translate(
-                        offset: Offset(0, 20 * value),
-                        child: const Icon(Icons.keyboard_double_arrow_down,
-                            color: Colors.white, size: 50),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 50),
-                  for (var i = 0; i < players.length; i++)
-                    PlayerTile(
-                      player: players[i] as CompetitivePlayer,
-                      index: i,
+                    const SizedBox(height: 100),
+                    DefaultTextStyle(
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontFamily: 'MoreSugar',
+                      ),
+                      child:
+                          Text('Scroll ke bawah untuk melihat daftar lengkap'),
                     ),
-                ],
+                    RepeatedAnimationBuilder(
+                      start: 0.0,
+                      end: 1.0,
+                      duration: Duration(milliseconds: 500),
+                      mode: RepeatMode.pingPong,
+                      curve: Curves.easeInOut,
+                      builder: (context, value, child) {
+                        return Transform.translate(
+                          offset: Offset(0, 20 * value),
+                          child: const Icon(Icons.keyboard_double_arrow_down,
+                              color: Colors.white, size: 50),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 50),
+                    for (var i = 0; i < players.length; i++)
+                      PlayerTile(
+                        player: players[i] as CompetitivePlayer,
+                        index: i,
+                      ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        Positioned(
-          top: -15,
-          right: 25,
-          child: Transform.scale(
-            scale: 0.7,
-            alignment: Alignment.topRight,
-            child: SizedBox(
-              width: 600,
-              height: 600,
-              child: KiddoQuestLogo(
-                yellowBackground: true,
+          Positioned(
+            top: -15,
+            right: 25,
+            child: Transform.scale(
+              scale: 0.7,
+              alignment: Alignment.topRight,
+              child: SizedBox(
+                width: 600,
+                height: 600,
+                child: KiddoQuestLogo(
+                  yellowBackground: true,
+                ),
               ),
             ),
           ),
-        ),
-        Positioned(
-          top: 50,
-          left: 50,
-          child: MenuIconButton(
-              onPressed: () {
-                context.go('/');
-              },
-              icon: Icon(Icons.close)),
-        ),
-        // Positioned(
-        //   bottom: 80,
-        //   right: 80,
-        //   child: DownloadButton(game: game),
-        // ),
-      ],
+          Positioned(
+            top: 50,
+            left: 50,
+            child: MenuIconButton(
+                onPressed: () {
+                  context.go('/');
+                },
+                icon: Icon(Icons.close)),
+          ),
+          // Positioned(
+          //   bottom: 80,
+          //   right: 80,
+          //   child: DownloadButton(game: game),
+          // ),
+        ],
+      ),
     );
   }
 }

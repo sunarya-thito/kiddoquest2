@@ -224,7 +224,7 @@ class _GameRoundScreenState extends State<GameRoundScreen>
     final Game game = GameSessionScreen.of(context).game;
     final GameRound gameRound = game.rounds[widget.round - 1];
     return MusicScene(
-      music: bgmGameMode2,
+      music: bgmGameMode1,
       child: Stack(
         children: [
           Positioned.fill(

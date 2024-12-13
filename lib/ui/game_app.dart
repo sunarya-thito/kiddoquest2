@@ -7,10 +7,12 @@ import 'package:kiddoquest2/assets/audios.dart';
 import 'package:kiddoquest2/assets/images.dart';
 import 'package:kiddoquest2/ui/music_scene.dart';
 import 'package:kiddoquest2/ui/screens/competitive/players_screen.dart';
+import 'package:kiddoquest2/ui/screens/cutscene_screen.dart';
 import 'package:kiddoquest2/ui/screens/game_session_screen.dart';
 import 'package:kiddoquest2/ui/screens/main_menu_screen.dart';
 import 'package:kiddoquest2/ui/screens/studio_logo_screen.dart';
 import 'package:kiddoquest2/ui/screens/under_construction_screen.dart';
+import 'package:video_player/video_player.dart';
 
 GoRouter router = GoRouter(routes: [
   GoRoute(
@@ -34,16 +36,26 @@ GoRouter router = GoRouter(routes: [
         child: StudioLogoScreen(
           showGame: false,
           child: Future(() async {
+            final controller =
+                VideoPlayerController.asset('assets/videos/tama.mp4');
+            await controller.initialize();
             await loadCompetitiveResources();
             final cameras = await getAvailableCameras();
             final game = await createGame('1');
-            return Data<CameraInfo>.inherit(
-              data: cameras.first,
-              child: GameSessionScreen(
-                  game: game,
-                  child: PlayersScreen(
-                    selectedCamera: cameras.first,
-                  )),
+            return GameSessionScreen(
+              game: game,
+              child: CutsceneScreen(
+                  video: controller,
+                  onContinue: () {
+                    return Data<CameraInfo>.inherit(
+                      data: cameras.first,
+                      child: GameSessionScreen(
+                          game: game,
+                          child: PlayersScreen(
+                            selectedCamera: cameras.first,
+                          )),
+                    );
+                  }),
             );
           }),
         ),
@@ -81,6 +93,7 @@ GoRouter router = GoRouter(routes: [
 ]);
 
 Future<void> loadMainMenuResources() async {
+  await Future.delayed(const Duration(seconds: 3));
   await loadBasicResources();
   await loadAll([
     imageSpiralLine,
@@ -93,6 +106,7 @@ Future<void> loadMainMenuResources() async {
 }
 
 Future<void> loadCooperativeResources() async {
+  await Future.delayed(const Duration(seconds: 3));
   await loadBasicResources();
   await loadAll([
     imageHeart,
@@ -102,6 +116,7 @@ Future<void> loadCooperativeResources() async {
 }
 
 Future<void> loadCompetitiveResources() async {
+  await Future.delayed(const Duration(seconds: 3));
   await loadBasicResources();
   await loadAll([
     imageCurlyLine,

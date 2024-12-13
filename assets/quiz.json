@@ -1,204 +1,200 @@
 {
   "name": "QuizAnakTK",
   "type": "competitive",
-  "defaultRoundDuration": 10,
+  "defaultRoundDuration": 12,
   "rounds": [
     {
       "question": "Hewan apa yang berbunyi 'guk-guk'?",
       "correctAnswer": {
         "text": "Anjing",
-        "image": "https://example.com/anjing.jpg"
+        "image": "https://png.pngtree.com/png-vector/20240513/ourlarge/pngtree-a-dog-that-is-sitting-on-white-background-png-image_12292415.png"
       },
       "wrongAnswer": {
         "text": "Kucing",
-        "image": "https://example.com/kucing.jpg"
+        "image": "https://media.istockphoto.com/id/1443562748/id/foto/kucing-jahe-lucu.jpg?s=612x612&w=0&k=20&c=g--RaRzUgk83osyJGx88ZtoChTk3VzP8n86EQHvc7Ko="
       }
     },
     {
       "question": "Apa warna langit di siang hari?",
       "correctAnswer": {
         "text": "Biru",
-        "image": "https://example.com/biru.jpg"
+        "image": "https://awsimages.detik.net.id/community/media/visual/2024/03/23/macam-macam-warna-biru-5_43.png?w=480"
       },
       "wrongAnswer": {
         "text": "Merah",
-        "image": "https://example.com/merah.jpg"
+        "image": "https://blog.knitto.co.id/wp-content/uploads/2024/04/Warna-Merah-Ferrari.png"
       }
     },
     {
       "question": "Buah apa yang berwarna merah dan manis?",
       "correctAnswer": {
         "text": "Apel",
-        "image": "https://example.com/apel.jpg"
+        "image": "https://media.istockphoto.com/id/1365598324/id/vektor/apel-merah-terisolasi.jpg?s=612x612&w=0&k=20&c=4frgpCF6L9jfpjr9nKGAkny--VZwWYbFZd_3EJSs9qk="
       },
       "wrongAnswer": {
         "text": "Pisang",
-        "image": "https://example.com/pisang.jpg"
+        "image": "https://i.pinimg.com/736x/d6/2c/6f/d62c6fab8756a07ce13d30059120cc32.jpg"
       }
     },
     {
       "question": "Hewan apa yang bisa terbang?",
       "correctAnswer": {
         "text": "Burung",
-        "image": "https://example.com/burung.jpg"
+        "image": "https://media.istockphoto.com/id/471479557/id/foto/house-sparrow-dengan-latar-belakang-putih.jpg?s=612x612&w=0&k=20&c=nzmnlZPjdjvmGXYDr6--xYMRt9VMWWiVQeZA0r7u8q0="
       },
       "wrongAnswer": {
         "text": "Gajah",
-        "image": "https://example.com/gajah.jpg"
+        "image": "https://static9.depositphotos.com/1007373/1174/i/450/depositphotos_11745121-stock-photo-elephant-isolated-on-white.jpg"
       }
     },
     {
       "question": "Angka setelah 2 adalah?",
       "correctAnswer": {
-        "text": "3",
-        "image": "https://example.com/3.jpg"
+        "text": "3"
       },
       "wrongAnswer": {
-        "text": "4",
-        "image": "https://example.com/4.jpg"
+        "text": "4"
       }
     },
     {
       "question": "Hewan apa yang berbunyi 'meong'?",
       "correctAnswer": {
         "text": "Kucing",
-        "image": "https://example.com/kucing.jpg"
+        "image": "https://media.istockphoto.com/id/1443562748/id/foto/kucing-jahe-lucu.jpg?s=612x612&w=0&k=20&c=g--RaRzUgk83osyJGx88ZtoChTk3VzP8n86EQHvc7Ko="
       },
       "wrongAnswer": {
         "text": "Anjing",
-        "image": "https://example.com/anjing.jpg"
+        "image": "https://png.pngtree.com/png-vector/20240513/ourlarge/pngtree-a-dog-that-is-sitting-on-white-background-png-image_12292415.png"
       }
     },
     {
       "question": "Benda apa yang digunakan untuk menulis?",
       "correctAnswer": {
         "text": "Pensil",
-        "image": "https://example.com/pensil.jpg"
+        "image": "https://img.freepik.com/premium-vector/graphic-pencil-3d-item-white-background_541075-1104.jpg"
       },
       "wrongAnswer": {
         "text": "Sepatu",
-        "image": "https://example.com/sepatu.jpg"
+        "image": "https://www.shutterstock.com/image-photo/sport-shoes-on-white-background-260nw-410498749.jpg"
       }
     },
     {
       "question": "Apa warna daun?",
       "correctAnswer": {
         "text": "Hijau",
-        "image": "https://example.com/hijau.jpg"
+        "image": "https://asset.kompas.com/crops/sZ4ve-OW8bX4892Wwc77pkRHQe0=/0x0:0x0/750x500/data/photo/buku/63b2a08407b59.jpg"
       },
       "wrongAnswer": {
         "text": "Kuning",
-        "image": "https://example.com/kuning.jpg"
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPrPFSpgN_SEN8Ve-oFY1fbrMs7KeovKFnpA&s"
       }
     },
     {
       "question": "Hewan apa yang memiliki belalai?",
       "correctAnswer": {
         "text": "Gajah",
-        "image": "https://example.com/gajah.jpg"
+        "image": "https://www.shutterstock.com/image-photo/baby-elephant-on-white-background-600w-764973898.jpg"
       },
       "wrongAnswer": {
         "text": "Kambing",
-        "image": "https://example.com/kambing.jpg"
+        "image": "https://png.pngtree.com/png-vector/20240224/ourlarge/pngtree-white-goat-against-background-png-image_11870768.png"
       }
     },
     {
       "question": "Apa yang kita minum setiap hari?",
       "correctAnswer": {
         "text": "Air",
-        "image": "https://example.com/air.jpg"
+        "image": "https://thumbs.dreamstime.com/b/water-air-bubbles-over-white-background-space-text-40383661.jpg"
       },
       "wrongAnswer": {
         "text": "Pasir",
-        "image": "https://example.com/pasir.jpg"
+        "image": "https://img.pikbest.com/wp/202344/beach-sand-texture-white-background-isolated_9926929.jpg!w700wp"
       }
     },
     {
       "question": "Hewan apa yang berbunyi 'kwek-kwek'?",
       "correctAnswer": {
         "text": "Bebek",
-        "image": "https://example.com/bebek.jpg"
+        "image": "https://png.pngtree.com/png-vector/20230318/ourmid/pngtree-small-white-duck-poultry-animal-transparent-on-white-background-png-image_6655614.png"
       },
       "wrongAnswer": {
         "text": "Ayam",
-        "image": "https://example.com/ayam.jpg"
+        "image": "https://media.istockphoto.com/id/1062922012/id/foto/ayam-putih.jpg?s=170667a&w=0&k=20&c=4i5CMDEYxFXVYFO5G4YszT736Mns6wWTGB9_U1GW_98="
       }
     },
     {
       "question": "Apa warna buah pisang yang matang?",
       "correctAnswer": {
         "text": "Kuning",
-        "image": "https://example.com/kuning.jpg"
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPrPFSpgN_SEN8Ve-oFY1fbrMs7KeovKFnpA&s"
       },
       "wrongAnswer": {
         "text": "Hijau",
-        "image": "https://example.com/hijau.jpg"
+        "image": "https://asset.kompas.com/crops/sZ4ve-OW8bX4892Wwc77pkRHQe0=/0x0:0x0/750x500/data/photo/buku/63b2a08407b59.jpg"
       }
     },
     {
       "question": "Benda apa yang digunakan untuk makan nasi?",
       "correctAnswer": {
         "text": "Sendok",
-        "image": "https://example.com/sendok.jpg"
+        "image": "https://images.tokopedia.net/img/cache/500-square/product-1/2016/10/11/995191/995191_a4874ee3-99a0-446c-9294-1425af3fa79f.jpg"
       },
       "wrongAnswer": {
         "text": "Sapu",
-        "image": "https://example.com/sapu.jpg"
+        "image": "https://down-id.img.susercontent.com/file/239bcca756b15b4284d577d1ae0bee7d"
       }
     },
     {
       "question": "Hewan apa yang memiliki cangkang?",
       "correctAnswer": {
         "text": "Kura-kura",
-        "image": "https://example.com/kura-kura.jpg"
+        "image": "https://www.shutterstock.com/image-photo/turtle-isolated-on-white-background-260nw-158644214.jpg"
       },
       "wrongAnswer": {
         "text": "Kelinci",
-        "image": "https://example.com/kelinci.jpg"
+        "image": "https://media.istockphoto.com/id/959866606/id/foto/kelinci-4-bulan-duduk-dengan-latar-belakang-putih.jpg?s=170667a&w=0&k=20&c=-dUZFaI6TF9XuKkhTCibQ-4Tky8i1cz2Z96k2lh5aL4="
       }
     },
     {
       "question": "Angka setelah 4 adalah?",
       "correctAnswer": {
-        "text": "5",
-        "image": "https://example.com/5.jpg"
+        "text": "5"
       },
       "wrongAnswer": {
-        "text": "6",
-        "image": "https://example.com/6.jpg"
+        "text": "6"
       }
     },
     {
       "question": "Hewan apa yang suka makan wortel?",
       "correctAnswer": {
         "text": "Kelinci",
-        "image": "https://example.com/kelinci.jpg"
+        "image": "https://media.istockphoto.com/id/959866606/id/foto/kelinci-4-bulan-duduk-dengan-latar-belakang-putih.jpg?s=170667a&w=0&k=20&c=-dUZFaI6TF9XuKkhTCibQ-4Tky8i1cz2Z96k2lh5aL4="
       },
       "wrongAnswer": {
         "text": "Gajah",
-        "image": "https://example.com/gajah.jpg"
+        "image": "https://www.shutterstock.com/image-photo/baby-elephant-on-white-background-600w-764973898.jpg"
       }
     },
     {
       "question": "Apa warna matahari saat terbenam?",
       "correctAnswer": {
         "text": "Oranye",
-        "image": "https://example.com/oranye.jpg"
+        "image": "https://png.pngtree.com/thumb_back/fw800/background/20210207/pngtree-orange-background-simple-solid-color-image_556851.jpg"
       },
       "wrongAnswer": {
         "text": "Biru",
-        "image": "https://example.com/biru.jpg"
+        "image": "https://awsimages.detik.net.id/community/media/visual/2024/03/23/macam-macam-warna-biru-5_43.png?w=480"
       }
     },
     {
       "question": "Benda apa yang digunakan untuk menyapu lantai?",
       "correctAnswer": {
         "text": "Sapu",
-        "image": "https://example.com/sapu.jpg"
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWLDDC1MUF6JOI11f6Dyz_xh0VeIhu5cDaqA&s"
       },
       "wrongAnswer": {
         "text": "Bantal",
-        "image": "https://example.com/bantal.jpg"
+        "image": "https://www.kanvakanva.com/uploads/product/large/Sarung_Bantal_Polos_Katun_Premium_cover.jpg"
       }
     },
     {

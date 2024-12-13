@@ -143,220 +143,227 @@ class _PlayerListScreenState extends State<PlayerListScreen>
 
   @override
   Widget build(BuildContext context) {
-    return KeyboardFocus(
-      onProceed: () {
-        controller.forward();
-      },
-      onCancel: () {
-        GameSessionScreen.of(context).popScreen();
-      },
-      child: MusicScene(
-        music: bgmGameMode1Intro,
-        child: Stack(
-          children: [
-            Positioned.fill(child: CompetitiveBackgroundPattern()),
-            Positioned(
-              top: 50,
-              left: 50,
-              child: MenuIconButton(
-                  onPressed: () {
-                    GameSessionScreen.of(context).pause(true);
-                  },
-                  icon: Icon(Icons.pause)),
-            ),
-            ListenableBuilder(
-              listenable: faceIndex,
-              builder: (context, child) {
-                final faceIndex = this.faceIndex.value ?? _FaceIndex(-5, null);
-                return Stack(
-                  children: [
-                    Positioned.fill(
-                      child: PlayerListScene(
-                        faces: widget.faces,
-                        show: controller.value == 0 ||
-                            (faceIndex.index < -2 && faceIndex.index >= -3),
-                        showName: faceIndex.index < -2 && faceIndex.index >= -3,
-                      ),
-                    ),
-                    for (int i = 0; i < widget.faces.length; i++)
+    return MusicScene(
+      music: bgmGameMode1Intro,
+      child: KeyboardFocus(
+        onProceed: () {
+          controller.forward();
+        },
+        onCancel: () {
+          GameSessionScreen.of(context).popScreen();
+        },
+        child: MusicScene(
+          music: bgmGameMode1Intro,
+          child: Stack(
+            children: [
+              Positioned.fill(child: CompetitiveBackgroundPattern()),
+              Positioned(
+                top: 50,
+                left: 50,
+                child: MenuIconButton(
+                    onPressed: () {
+                      GameSessionScreen.of(context).pause(true);
+                    },
+                    icon: Icon(Icons.pause)),
+              ),
+              ListenableBuilder(
+                listenable: faceIndex,
+                builder: (context, child) {
+                  final faceIndex =
+                      this.faceIndex.value ?? _FaceIndex(-5, null);
+                  return Stack(
+                    children: [
                       Positioned.fill(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Entry.scale(
-                              visible:
-                                  controller.value != 0 && faceIndex.index >= 0,
-                              delay: Duration(milliseconds: 300),
-                              duration: const Duration(milliseconds: 400),
-                              child: DefaultTextStyle(
-                                style: TextStyle(
-                                    fontSize: 80,
-                                    color: Colors.white,
-                                    fontFamily: 'MoreSugar'),
-                                child: OutlinedText(
-                                  child: Text('Kamu akan bermain sebagai...'),
+                        child: PlayerListScene(
+                          faces: widget.faces,
+                          show: controller.value == 0 ||
+                              (faceIndex.index < -2 && faceIndex.index >= -3),
+                          showName:
+                              faceIndex.index < -2 && faceIndex.index >= -3,
+                        ),
+                      ),
+                      for (int i = 0; i < widget.faces.length; i++)
+                        Positioned.fill(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Entry.scale(
+                                visible: controller.value != 0 &&
+                                    faceIndex.index >= 0,
+                                delay: Duration(milliseconds: 300),
+                                duration: const Duration(milliseconds: 400),
+                                child: DefaultTextStyle(
+                                  style: TextStyle(
+                                      fontSize: 80,
+                                      color: Colors.white,
+                                      fontFamily: 'MoreSugar'),
+                                  child: OutlinedText(
+                                    child: Text('Kamu akan bermain sebagai...'),
+                                  ),
                                 ),
                               ),
-                            ),
-                            Entry.scale(
+                              Entry.scale(
+                                  visible: faceIndex.index == i &&
+                                      controller.value != 0,
+                                  curve: Curves.easeInOut,
+                                  delay: Duration(milliseconds: 500),
+                                  duration: const Duration(milliseconds: 400),
+                                  child: SizedBox(
+                                    width: 500,
+                                    height: 500,
+                                    child: PlayerFrame(
+                                        face: widget.faces[i].faceImage),
+                                  )),
+                              Entry.scale(
                                 visible: faceIndex.index == i &&
+                                    faceIndex.name != null &&
                                     controller.value != 0,
-                                curve: Curves.easeInOut,
                                 delay: Duration(milliseconds: 500),
                                 duration: const Duration(milliseconds: 400),
-                                child: SizedBox(
-                                  width: 500,
-                                  height: 500,
-                                  child: PlayerFrame(
-                                      face: widget.faces[i].faceImage),
-                                )),
-                            Entry.scale(
-                              visible: faceIndex.index == i &&
-                                  faceIndex.name != null &&
-                                  controller.value != 0,
-                              delay: Duration(milliseconds: 500),
-                              duration: const Duration(milliseconds: 400),
-                              child: DefaultTextStyle(
-                                style: TextStyle(
-                                    fontSize: 150,
-                                    color: colorStrongYellow,
-                                    fontFamily: 'MoreSugar'),
-                                child: OutlinedText(
-                                  child: Text(
-                                      widget.faces[i].character.value!.name),
+                                child: DefaultTextStyle(
+                                  style: TextStyle(
+                                      fontSize: 150,
+                                      color: colorStrongYellow,
+                                      fontFamily: 'MoreSugar'),
+                                  child: OutlinedText(
+                                    child: Text(
+                                        widget.faces[i].character.value!.name),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    Positioned(
-                      top: 80,
-                      left: 0,
-                      right: 0,
-                      child: Center(
-                        child: DefaultTextStyle(
-                          style: TextStyle(
-                              fontSize: 80,
-                              color: Colors.white,
-                              fontFamily: 'MoreSugar'),
-                          child: Entry.scale(
-                            visible: controller.value == 0 ||
-                                (faceIndex.index < -2 && faceIndex.index >= -3),
-                            child: OutlinedText(
-                              child: Text('Daftar Pemain'),
+                      Positioned(
+                        top: 80,
+                        left: 0,
+                        right: 0,
+                        child: Center(
+                          child: DefaultTextStyle(
+                            style: TextStyle(
+                                fontSize: 80,
+                                color: Colors.white,
+                                fontFamily: 'MoreSugar'),
+                            child: Entry.scale(
+                              visible: controller.value == 0 ||
+                                  (faceIndex.index < -2 &&
+                                      faceIndex.index >= -3),
+                              child: OutlinedText(
+                                child: Text('Daftar Pemain'),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      bottom: 80,
-                      right: -10,
-                      child: Entry.scale(
-                        visible: controller.value == 0,
-                        inProperties: [
-                          ScaleProperty(0.0, 1.0,
-                              alignment: Alignment.centerRight),
-                        ],
-                        outProperties: [
-                          ScaleProperty(1.0, 0.0,
-                              alignment: Alignment.centerRight),
-                        ],
-                        child: MenuButton(
-                          label: Text('Lanjutkan'),
-                          width: 400,
-                          type: MenuButtonType.right,
-                          onPressed: () {
-                            controller.forward();
-                          },
+                      Positioned(
+                        bottom: 80,
+                        right: -10,
+                        child: Entry.scale(
+                          visible: controller.value == 0,
+                          inProperties: [
+                            ScaleProperty(0.0, 1.0,
+                                alignment: Alignment.centerRight),
+                          ],
+                          outProperties: [
+                            ScaleProperty(1.0, 0.0,
+                                alignment: Alignment.centerRight),
+                          ],
+                          child: MenuButton(
+                            label: Text('Lanjutkan'),
+                            width: 400,
+                            type: MenuButtonType.right,
+                            onPressed: () {
+                              controller.forward();
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      bottom: 80,
-                      left: -10,
-                      child: Entry.scale(
-                        visible: controller.value == 0,
-                        inProperties: [
-                          ScaleProperty(0.0, 1.0,
-                              alignment: Alignment.centerLeft),
-                        ],
-                        outProperties: [
-                          ScaleProperty(1.0, 0.0,
-                              alignment: Alignment.centerLeft),
-                        ],
-                        child: MenuButton(
-                          label: Text('Ulangi'),
-                          width: 400,
-                          type: MenuButtonType.left,
-                          onPressed: () {
-                            GameSessionScreen.of(context).popScreen();
-                          },
+                      Positioned(
+                        bottom: 80,
+                        left: -10,
+                        child: Entry.scale(
+                          visible: controller.value == 0,
+                          inProperties: [
+                            ScaleProperty(0.0, 1.0,
+                                alignment: Alignment.centerLeft),
+                          ],
+                          outProperties: [
+                            ScaleProperty(1.0, 0.0,
+                                alignment: Alignment.centerLeft),
+                          ],
+                          child: MenuButton(
+                            label: Text('Ulangi'),
+                            width: 400,
+                            type: MenuButtonType.left,
+                            onPressed: () {
+                              GameSessionScreen.of(context).popScreen();
+                            },
+                          ),
                         ),
                       ),
-                    ),
-                    Positioned(
-                      right: 50,
-                      bottom: 50,
-                      child: Entry.scale(
-                        visible: faceIndex.countdown != null,
-                        delay: Duration(milliseconds: 500),
-                        duration: const Duration(milliseconds: 400),
-                        child: SizedBox(
-                          width: 300,
-                          height: 300,
-                          child: CurlyCircle(
-                            child: Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                Positioned(
-                                  top: -35,
-                                  left: 40,
-                                  right: 40,
-                                  child: Entry.scale(
-                                    visible: faceIndex.countdown != null,
-                                    delay: Duration(milliseconds: 700),
-                                    child: imageRoundStartsIn.createImage(
-                                      fit: BoxFit.fill,
+                      Positioned(
+                        right: 50,
+                        bottom: 50,
+                        child: Entry.scale(
+                          visible: faceIndex.countdown != null,
+                          delay: Duration(milliseconds: 500),
+                          duration: const Duration(milliseconds: 400),
+                          child: SizedBox(
+                            width: 300,
+                            height: 300,
+                            child: CurlyCircle(
+                              child: Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  Positioned(
+                                    top: -35,
+                                    left: 40,
+                                    right: 40,
+                                    child: Entry.scale(
+                                      visible: faceIndex.countdown != null,
+                                      delay: Duration(milliseconds: 700),
+                                      child: imageRoundStartsIn.createImage(
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Positioned(
-                                  child: Transform.translate(
-                                    offset: Offset(0, 10),
-                                    child: DefaultTextStyle(
-                                        style: TextStyle(
-                                            fontSize: 150,
-                                            color: colorSkyBlue,
-                                            fontFamily: 'MoreSugar'),
-                                        child: Entry.scale(
-                                          key: ValueKey(
-                                              faceIndex.countdown ?? -1),
-                                          visible: faceIndex.countdown != null,
-                                          duration:
-                                              const Duration(milliseconds: 400),
-                                          child: Center(
-                                            child: OutlinedText(
-                                              child: Text(faceIndex.countdown
-                                                  .toString()),
+                                  Positioned(
+                                    child: Transform.translate(
+                                      offset: Offset(0, 10),
+                                      child: DefaultTextStyle(
+                                          style: TextStyle(
+                                              fontSize: 150,
+                                              color: colorSkyBlue,
+                                              fontFamily: 'MoreSugar'),
+                                          child: Entry.scale(
+                                            key: ValueKey(
+                                                faceIndex.countdown ?? -1),
+                                            visible:
+                                                faceIndex.countdown != null,
+                                            duration: const Duration(
+                                                milliseconds: 400),
+                                            child: Center(
+                                              child: OutlinedText(
+                                                child: Text(faceIndex.countdown
+                                                    .toString()),
+                                              ),
                                             ),
-                                          ),
-                                        )),
+                                          )),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
-                );
-              },
-            ),
-          ],
+                      )
+                    ],
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

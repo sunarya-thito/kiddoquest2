@@ -60,84 +60,90 @@ class _AnswerRevealScreenState extends State<AnswerRevealScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        const Positioned.fill(
-          child: CompetitiveBackgroundPattern(),
-        ),
-        Positioned(
-          top: 50,
-          left: 50,
-          child: MenuIconButton(
-              onPressed: () {
-                GameSessionScreen.of(context).pause(true);
-              },
-              icon: Icon(Icons.pause)),
-        ),
-        const Positioned(
-          top: 300,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          child: OverflowBox(
-            minWidth: 0,
-            minHeight: 0,
-            maxWidth: double.infinity,
-            maxHeight: double.infinity,
-            alignment: Alignment.topCenter,
-            child: SizedBox(
-              width: 4500,
-              height: 4500,
-              child: CurlyCircle(
-                points: 16,
-                radius: 0.9,
+    return MusicScene(
+      music: bgmGameMode1,
+      child: Stack(
+        children: [
+          const Positioned.fill(
+            child: CompetitiveBackgroundPattern(),
+          ),
+          Positioned(
+            top: 50,
+            left: 50,
+            child: MenuIconButton(
+                onPressed: () {
+                  GameSessionScreen.of(context).pause(true);
+                },
+                icon: Icon(Icons.pause)),
+          ),
+          const Positioned(
+            top: 300,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: OverflowBox(
+              minWidth: 0,
+              minHeight: 0,
+              maxWidth: double.infinity,
+              maxHeight: double.infinity,
+              alignment: Alignment.topCenter,
+              child: SizedBox(
+                width: 4500,
+                height: 4500,
+                child: CurlyCircle(
+                  points: 16,
+                  radius: 0.9,
+                ),
               ),
             ),
           ),
-        ),
-        Positioned.fill(
-            child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Entry.scale(
-              child: DefaultTextStyle(
-                style: TextStyle(
-                    fontSize: 100,
-                    color: Colors.white,
-                    fontFamily: 'MoreSugar'),
-                textAlign: TextAlign.center,
-                child: OutlinedText(
-                  child: Text(
-                    widget.gameRound.question,
-                    maxLines: 3,
-                    softWrap: true,
-                    overflow: TextOverflow.visible,
+          Positioned.fill(
+              child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Entry.scale(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 200),
+                  child: DefaultTextStyle(
+                    style: TextStyle(
+                        fontSize: 100,
+                        color: Colors.white,
+                        fontFamily: 'MoreSugar'),
+                    textAlign: TextAlign.center,
+                    child: OutlinedText(
+                      child: Text(
+                        widget.gameRound.question,
+                        maxLines: 3,
+                        softWrap: true,
+                        overflow: TextOverflow.visible,
+                      ),
+                    ),
                   ),
                 ),
               ),
-            ),
-            Entry.scale(
-              delay: const Duration(seconds: 3),
-              duration: const Duration(milliseconds: 400),
-              child: SizedBox(
-                width: 700,
-                height: 700,
-                child: FittedBox(
-                  fit: BoxFit.fill,
-                  child: AnswerWidget(
-                    answer: AnswerData(
-                        widget.gameRound.correctAnswer.content.textContent,
-                        widget.gameRound.correctAnswer.content.imageContent,
-                        true),
-                    fill: false,
+              Entry.scale(
+                delay: const Duration(seconds: 3),
+                duration: const Duration(milliseconds: 400),
+                child: SizedBox(
+                  width: 700,
+                  height: 700,
+                  child: FittedBox(
+                    fit: BoxFit.fill,
+                    child: AnswerWidget(
+                      answer: AnswerData(
+                          widget.gameRound.correctAnswer.content.textContent,
+                          widget.gameRound.correctAnswer.content.imageContent,
+                          true),
+                      fill: false,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ))
-      ],
+            ],
+          ))
+        ],
+      ),
     );
   }
 }

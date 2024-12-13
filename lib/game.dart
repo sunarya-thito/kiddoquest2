@@ -57,7 +57,7 @@ abstract class Game {
   final String name;
   final Duration defaultRoundDuration;
   final ValueNotifier<List<Player>> players = ValueNotifier([]);
-  final List<GameRound> rounds = [];
+  List<GameRound> rounds = [];
 
   Game(this.name, this.defaultRoundDuration);
 
@@ -179,7 +179,7 @@ class Character {
   Character(this.name, this.nameSound, this.nameAnnounceSound, this.gender);
 }
 
-Game createGame(GameConfig config) {
+Game createGameFromConfig(GameConfig config) {
   Game game;
   switch (config.type) {
     case GameType.competitive:

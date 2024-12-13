@@ -46,6 +46,7 @@ dependencies:
   audioplayers: ^6.1.0
   shared_preferences: ^2.3.3
   web: ^1.1.0
+  video_player: ^2.9.2
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,8 @@ flutter:
   assets:
     - assets/images/
     - assets/audios/
+    - assets/quiz.json
+    - assets/videos/tama.mp4
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -1,10 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:animation_toolkit/animation_toolkit.dart';
 import 'package:data_widget/data_widget.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kiddoquest2/assets/audios.dart';
 import 'package:kiddoquest2/game.dart';
+import 'package:kiddoquest2/game_config.dart';
 import 'package:kiddoquest2/ui/game_screen.dart';
 import 'package:kiddoquest2/ui/loading_scene.dart';
 import 'package:kiddoquest2/ui/music_scene.dart';
@@ -164,32 +167,40 @@ class GameSessionScreenState extends State<GameSessionScreen> {
 }
 
 Future<Game> createGame(String id) async {
-  await Future.delayed(Duration(seconds: 2));
-  CompetitiveGame game =
-      CompetitiveGame('Quiz Pengetahuan Umum', Duration(seconds: 10));
-  // format is wrong answer, correct answer
-  game.rounds.add(GameRound(
-      'Hewan pemakan daging',
-      GameRoundAnswer(AnswerContent('Kuda',
-          'https://png.pngtree.com/png-clipart/20201112/ourmid/pngtree-hand-drawn-cartoon-goat-clipart-animal-illustration-png-image_2419046.jpg')),
-      GameRoundAnswer(AnswerContent('Singa',
-          'https://png.pngtree.com/png-clipart/20230819/original/pngtree-cute-lion-cartoon-on-white-background-picture-image_8052533.png')),
-      null));
-  game.rounds.add(GameRound(
-      'Hewan pemakan tumbuhan',
-      GameRoundAnswer(AnswerContent('Singa', null)),
-      GameRoundAnswer(AnswerContent('Kambing', null)),
-      null));
-  game.rounds.add(GameRound(
-      '1 + 1 = ?',
-      GameRoundAnswer(AnswerContent('3', null)),
-      GameRoundAnswer(AnswerContent('2', null)),
-      null));
-  game.rounds.add(GameRound(
-      '2 + 2 = ?',
-      GameRoundAnswer(AnswerContent('9', null)),
-      GameRoundAnswer(AnswerContent('4', null)),
-      null));
+  // await Future.delayed(Duration(seconds: 2));
+  // CompetitiveGame game =
+  //     CompetitiveGame('Quiz Pengetahuan Umum', Duration(seconds: 10));
+  // // format is wrong answer, correct answer
+  // game.rounds.add(GameRound(
+  //     'Hewan pemakan daging',
+  //     GameRoundAnswer(AnswerContent('Kuda',
+  //         'https://png.pngtree.com/png-clipart/20201112/ourmid/pngtree-hand-drawn-cartoon-goat-clipart-animal-illustration-png-image_2419046.jpg')),
+  //     GameRoundAnswer(AnswerContent('Singa',
+  //         'https://png.pngtree.com/png-clipart/20230819/original/pngtree-cute-lion-cartoon-on-white-background-picture-image_8052533.png')),
+  //     null));
+  // game.rounds.add(GameRound(
+  //     'Hewan pemakan tumbuhan',
+  //     GameRoundAnswer(AnswerContent('Singa', null)),
+  //     GameRoundAnswer(AnswerContent('Kambing', null)),
+  //     null));
+  // game.rounds.add(GameRound(
+  //     '1 + 1 = ?',
+  //     GameRoundAnswer(AnswerContent('3', null)),
+  //     GameRoundAnswer(AnswerContent('2', null)),
+  //     null));
+  // game.rounds.add(GameRound(
+  //     '2 + 2 = ?',
+  //     GameRoundAnswer(AnswerContent('9', null)),
+  //     GameRoundAnswer(AnswerContent('4', null)),
+  //     null));
+  // game.rounds.shuffle();
+  // return game;
+  // load assets/quiz.json
+  String bundle = await rootBundle.loadString('assets/quiz.json');
+  GameConfig config = GameConfig.fromJSON(jsonDecode(bundle));
+  Game game = createGameFromConfig(config);
   game.rounds.shuffle();
+  // trim the list to 5 rounds
+  game.rounds = game.rounds.sublist(0, 5);
   return game;
 }

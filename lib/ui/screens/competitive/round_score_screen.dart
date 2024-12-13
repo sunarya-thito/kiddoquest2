@@ -64,93 +64,96 @@ class _RoundScoreScreenState extends State<RoundScoreScreen> {
   @override
   Widget build(BuildContext context) {
     var players = GameSessionScreen.of(context).game.players.value;
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: CompetitiveBackgroundPattern(),
-        ),
-        Positioned(
-          top: 50,
-          left: 50,
-          child: MenuIconButton(
-              onPressed: () {
-                GameSessionScreen.of(context).pause(true);
-              },
-              icon: Icon(Icons.pause)),
-        ),
-        Positioned(
-          top: 25,
-          right: 25,
-          child: SizedBox(
-            width: 250,
-            height: 250,
-            child: FittedBox(
-              fit: BoxFit.fill,
-              child: GameRoundCounter(
-                round: widget.round,
-              ),
-            ),
+    return MusicScene(
+      music: bgmGameMode1,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: CompetitiveBackgroundPattern(),
           ),
-        ),
-        Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Entry.scale(
-                child: DefaultTextStyle(
-                  style: TextStyle(
-                      fontSize: 100,
-                      color: Colors.white,
-                      fontFamily: 'MoreSugar'),
-                  child: OutlinedText(
-                    child: Text('Perolehan Nilai'),
-                  ),
+          Positioned(
+            top: 50,
+            left: 50,
+            child: MenuIconButton(
+                onPressed: () {
+                  GameSessionScreen.of(context).pause(true);
+                },
+                icon: Icon(Icons.pause)),
+          ),
+          Positioned(
+            top: 25,
+            right: 25,
+            child: SizedBox(
+              width: 250,
+              height: 250,
+              child: FittedBox(
+                fit: BoxFit.fill,
+                child: GameRoundCounter(
+                  round: widget.round,
                 ),
               ),
-              PlayerListScene(
-                faces: players,
-                showName: true,
-                showScore: true,
-              ),
-            ],
-          ),
-        ),
-        Positioned(
-          bottom: 80,
-          right: -10,
-          child: Entry.scale(
-            inProperties: [
-              ScaleProperty(0.0, 1.0, alignment: Alignment.centerRight),
-            ],
-            outProperties: [
-              ScaleProperty(1.0, 0.0, alignment: Alignment.centerRight),
-            ],
-            delay: Duration(seconds: 2),
-            child: MenuButton(
-              label: Text('Lanjutkan'),
-              width: 400,
-              type: MenuButtonType.right,
-              onPressed: () {
-                for (final player in players) {
-                  (player as CompetitivePlayer).score.value +=
-                      player.currentRoundScore.value;
-                }
-                if (widget.slide) {
-                  GameSessionScreen.of(context).nextScreen(
-                    widget.onContinue,
-                    delay: Duration.zero,
-                    duration: Duration(milliseconds: 500),
-                    reverseDuration: Duration(milliseconds: 500),
-                    loadingScreen: SlideLoadingScene(),
-                  );
-                } else {
-                  GameSessionScreen.of(context).nextScreen(widget.onContinue);
-                }
-              },
             ),
           ),
-        ),
-      ],
+          Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Entry.scale(
+                  child: DefaultTextStyle(
+                    style: TextStyle(
+                        fontSize: 100,
+                        color: Colors.white,
+                        fontFamily: 'MoreSugar'),
+                    child: OutlinedText(
+                      child: Text('Perolehan Nilai'),
+                    ),
+                  ),
+                ),
+                PlayerListScene(
+                  faces: players,
+                  showName: true,
+                  showScore: true,
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 80,
+            right: -10,
+            child: Entry.scale(
+              inProperties: [
+                ScaleProperty(0.0, 1.0, alignment: Alignment.centerRight),
+              ],
+              outProperties: [
+                ScaleProperty(1.0, 0.0, alignment: Alignment.centerRight),
+              ],
+              delay: Duration(seconds: 2),
+              child: MenuButton(
+                label: Text('Lanjutkan'),
+                width: 400,
+                type: MenuButtonType.right,
+                onPressed: () {
+                  for (final player in players) {
+                    (player as CompetitivePlayer).score.value +=
+                        player.currentRoundScore.value;
+                  }
+                  if (widget.slide) {
+                    GameSessionScreen.of(context).nextScreen(
+                      widget.onContinue,
+                      delay: Duration.zero,
+                      duration: Duration(milliseconds: 500),
+                      reverseDuration: Duration(milliseconds: 500),
+                      loadingScreen: SlideLoadingScene(),
+                    );
+                  } else {
+                    GameSessionScreen.of(context).nextScreen(widget.onContinue);
+                  }
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
