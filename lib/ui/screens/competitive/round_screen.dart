@@ -15,10 +15,12 @@ import '../game_session_screen.dart';
 
 class RoundScreen extends StatefulWidget {
   final int round;
+  final GameCharacter character;
 
   const RoundScreen({
     super.key,
     required this.round,
+    required this.character,
   });
 
   @override
@@ -43,12 +45,18 @@ class _RoundScreenState extends State<RoundScreen>
       }
     });
     _controller.forward();
+    Future.delayed(Duration(seconds: 1), () {
+      playRoundSound(widget.round, widget.character);
+    });
   }
 
   void _onDone() {
     GameSessionScreen.nextScreen(
       context,
-      GameRoundScreen(round: widget.round),
+      GameRoundScreen(
+        round: widget.round,
+        gameCharacter: widget.character,
+      ),
       loadingScreen: const SlideLoadingScene(),
       delay: Duration.zero,
       duration: Duration(milliseconds: 500),

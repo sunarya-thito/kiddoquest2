@@ -3,8 +3,11 @@ import 'dart:math';
 import 'package:data_widget/data_widget.dart';
 import 'package:face_api_web/face_api_web.dart';
 import 'package:flutter/material.dart';
+import 'package:kiddoquest2/assets/audios.dart';
 import 'package:kiddoquest2/assets/images.dart';
 import 'package:kiddoquest2/assets/theme.dart';
+import 'package:kiddoquest2/ui/components/round_countdown.dart';
+import 'package:kiddoquest2/ui/music_scene.dart';
 import 'package:kiddoquest2/ui/screens/competitive/game_over_screen.dart';
 import 'package:kiddoquest2/ui/screens/competitive/players_screen.dart';
 import 'package:kiddoquest2/ui/screens/competitive/round_score_screen.dart';
@@ -20,10 +23,12 @@ import 'answer_reveal_screen.dart';
 
 class GameRoundScreen extends StatefulWidget {
   final int round;
+  final GameCharacter gameCharacter;
 
   const GameRoundScreen({
     super.key,
     required this.round,
+    required this.gameCharacter,
   });
 
   @override
@@ -158,10 +163,10 @@ class _GameRoundScreenState extends State<GameRoundScreen>
             player.reports.add(PlayerReport(round, 0, round.wrongAnswer));
             continue;
           }
-          double point = (correctDuration.inMilliseconds / 1000.0);
+          double point = (correctDuration.inMilliseconds / 1000.0) + 1;
           player.reports
-              .add(PlayerReport(round, point.round(), round.correctAnswer));
-          player.currentRoundScore.value += point.round();
+              .add(PlayerReport(round, point.ceil(), round.correctAnswer));
+          player.currentRoundScore.value += point.ceil();
         }
         if (currentRound < currentGame.rounds.length) {
           GameSessionScreen.nextScreen(
@@ -170,7 +175,11 @@ class _GameRoundScreenState extends State<GameRoundScreen>
                   gameRound: round,
                   onEnd: RoundScoreScreen(
                       round: widget.round,
-                      onContinue: RoundScreen(round: currentRound + 1))),
+                      hasNextRound: true,
+                      onContinue: RoundScreen(
+                        round: currentRound + 1,
+                        character: GameCharacter.tama,
+                      ))),
               delay: Duration.zero,
               duration: Duration(milliseconds: 500),
               reverseDuration: Duration(milliseconds: 500),
@@ -183,6 +192,7 @@ class _GameRoundScreenState extends State<GameRoundScreen>
                   onEnd: RoundScoreScreen(
                       round: widget.round,
                       slide: false,
+                      hasNextRound: false,
                       onContinue: Future(() async {
                         await loadGameMode1GameOverResources();
                         return GameOverScreen();
@@ -197,8 +207,15 @@ class _GameRoundScreenState extends State<GameRoundScreen>
     Future.delayed(const Duration(milliseconds: 1200), () {
       if (mounted) {
         _controller.forward();
+        round.playRoundTTS();
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -206,241 +223,261 @@ class _GameRoundScreenState extends State<GameRoundScreen>
     final CameraInfo cameraInfo = Data.of<CameraInfo>(context);
     final Game game = GameSessionScreen.of(context).game;
     final GameRound gameRound = game.rounds[widget.round - 1];
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: CompetitiveBackgroundPattern(),
-        ),
-        ListenableBuilder(
-          listenable: _controller,
-          builder: (context, child) {
-            return Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: LinearProgressIndicator(
-                value: 1 - _controller.value,
-                backgroundColor: Colors.white,
-                color: colorStrongYellow,
-                minHeight: 50,
-                borderRadius: BorderRadius.zero,
-              ),
-            );
-          },
-        ),
-        Positioned.fill(
-            bottom: 30,
-            child: Container(
-              padding: EdgeInsets.all(70),
-              child: ClipPath(
-                clipper: _CustomRoundedRectangleClipper(
-                  radius: 70,
-                  gap: 50,
+    return MusicScene(
+      music: bgmGameMode2,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: CompetitiveBackgroundPattern(),
+          ),
+          ListenableBuilder(
+            listenable: _controller,
+            builder: (context, child) {
+              return Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: LinearProgressIndicator(
+                  value: 1 - _controller.value,
+                  backgroundColor: Colors.white,
+                  color: colorStrongYellow,
+                  minHeight: 50,
+                  borderRadius: BorderRadius.zero,
                 ),
-                child: LayoutBuilder(builder: (context, constraints) {
-                  double width = constraints.maxWidth;
-                  double height = constraints.maxHeight;
-                  return Stack(
-                    fit: StackFit.passthrough,
-                    children: [
-                      FaceCameraDetector(
-                        selectedCamera: cameraInfo,
-                        references: _references,
-                        captureMode: const MultipleFacesCaptureMode(
-                          FaceDetectionModel.tinyFace,
-                          features: [
-                            FaceDetectionFeature.faceLandmark,
-                            FaceDetectionFeature.faceDescriptor,
-                            FaceDetectionFeature.faceAgeAndGender,
-                          ],
+              );
+            },
+          ),
+          Positioned.fill(
+              bottom: 30,
+              child: Container(
+                padding: EdgeInsets.all(70),
+                child: ClipPath(
+                  clipper: _CustomRoundedRectangleClipper(
+                    radius: 70,
+                    gap: 50,
+                  ),
+                  child: LayoutBuilder(builder: (context, constraints) {
+                    double width = constraints.maxWidth;
+                    double height = constraints.maxHeight;
+                    return Stack(
+                      fit: StackFit.passthrough,
+                      children: [
+                        FaceCameraDetector(
+                          selectedCamera: cameraInfo,
+                          references: _references,
+                          captureMode: const MultipleFacesCaptureMode(
+                            FaceDetectionModel.tinyFace,
+                            features: [
+                              FaceDetectionFeature.faceLandmark,
+                              FaceDetectionFeature.faceDescriptor,
+                              FaceDetectionFeature.faceAgeAndGender,
+                            ],
+                          ),
+                          onFaceDetected: (faces) {
+                            detectedFaces.value = faces.map((face) {
+                              Rect relativeRect =
+                                  face.reference.references.first.boundingBox;
+                              bool isLeft =
+                                  (relativeRect.left + relativeRect.width / 2) <
+                                      0.5;
+                              return _FaceScoreSection(face, isLeft);
+                            }).toList();
+                          },
                         ),
-                        onFaceDetected: (faces) {
-                          detectedFaces.value = faces.map((face) {
-                            Rect relativeRect =
-                                face.reference.references.first.boundingBox;
-                            bool isLeft =
-                                (relativeRect.left + relativeRect.width / 2) <
-                                    0.5;
-                            return _FaceScoreSection(face, isLeft);
-                          }).toList();
-                        },
-                      ),
-                      Positioned.fill(
-                        child: ListenableBuilder(
-                          listenable: detectedFaces,
-                          builder: (context, child) {
-                            int totalLeft = detectedFaces.value
-                                .where((face) => face.isLeft)
-                                .length;
-                            int totalRight =
-                                detectedFaces.value.length - totalLeft;
-                            return Stack(
-                              children: [
-                                for (_FaceScoreSection face
-                                    in detectedFaces.value)
-                                  Builder(builder: (context) {
-                                    var list =
-                                        face.faceScore.reference.references;
-                                    if (list.isEmpty) {
-                                      return Container();
-                                    }
-                                    final relativeRect = list.first.boundingBox;
-                                    var label = face.faceScore.reference.label;
-                                    if (label == null) {
-                                      return Container();
-                                    }
-                                    int? index =
-                                        double.tryParse(label)?.toInt();
-                                    if (index == null ||
-                                        index < 0 ||
-                                        index >= game.players.value.length) {
-                                      return Container();
-                                    }
-                                    Player player = game.players.value[index];
-                                    return AnimatedPositioned(
-                                      duration: Duration(milliseconds: 150),
-                                      curve: Curves.easeInOut,
-                                      left: relativeRect.left * width,
-                                      top: relativeRect.top * height - 150,
-                                      width: relativeRect.width * width,
-                                      height: relativeRect.height * height,
-                                      child: Nametag(
-                                        name: player.character.value!.name,
-                                      ),
-                                    );
-                                  }),
-                                Positioned(
-                                  bottom: 25,
-                                  left: width / 2 - 150,
-                                  child: Entry.scale(
-                                    delay: Duration(milliseconds: 500),
-                                    child: DefaultTextStyle(
-                                      style: TextStyle(
-                                        fontSize: 120,
-                                        color: colorSkyBlue,
-                                        fontFamily: 'MoreSugar',
-                                      ),
-                                      textAlign: TextAlign.center,
-                                      child: OutlinedText(
-                                        child: Text(
-                                          totalLeft.toString(),
+                        Positioned.fill(
+                          child: ListenableBuilder(
+                            listenable: detectedFaces,
+                            builder: (context, child) {
+                              int totalLeft = detectedFaces.value
+                                  .where((face) => face.isLeft)
+                                  .length;
+                              int totalRight =
+                                  detectedFaces.value.length - totalLeft;
+                              return Stack(
+                                children: [
+                                  for (_FaceScoreSection face
+                                      in detectedFaces.value)
+                                    Builder(builder: (context) {
+                                      var list =
+                                          face.faceScore.reference.references;
+                                      if (list.isEmpty) {
+                                        return Container();
+                                      }
+                                      final relativeRect =
+                                          list.first.boundingBox;
+                                      var label =
+                                          face.faceScore.reference.label;
+                                      if (label == null) {
+                                        return Container();
+                                      }
+                                      int? index =
+                                          double.tryParse(label)?.toInt();
+                                      if (index == null ||
+                                          index < 0 ||
+                                          index >= game.players.value.length) {
+                                        return Container();
+                                      }
+                                      Player player = game.players.value[index];
+                                      return AnimatedPositioned(
+                                        key: ValueKey(player),
+                                        duration: Duration(milliseconds: 150),
+                                        curve: Curves.easeInOut,
+                                        left: relativeRect.left * width,
+                                        top: relativeRect.top * height - 150,
+                                        width: relativeRect.width * width,
+                                        height: relativeRect.height * height,
+                                        child: Nametag(
+                                          name: player.character.value!.name,
+                                        ),
+                                      );
+                                    }),
+                                  Positioned(
+                                    bottom: 25,
+                                    left: width / 2 - 150,
+                                    child: Entry.scale(
+                                      delay: Duration(milliseconds: 500),
+                                      child: DefaultTextStyle(
+                                        style: TextStyle(
+                                          fontSize: 120,
+                                          color: colorSkyBlue,
+                                          fontFamily: 'MoreSugar',
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        child: OutlinedText(
+                                          child: Text(
+                                            totalLeft.toString(),
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                                Positioned(
-                                  bottom: 25,
-                                  right: width / 2 - 150,
-                                  child: Entry.scale(
-                                    delay: Duration(milliseconds: 500),
-                                    child: DefaultTextStyle(
-                                      style: TextStyle(
-                                        fontSize: 120,
-                                        color: colorSkyBlue,
-                                        fontFamily: 'MoreSugar',
-                                      ),
-                                      textAlign: TextAlign.center,
-                                      child: OutlinedText(
-                                        child: Text(totalRight.toString()),
+                                  Positioned(
+                                    bottom: 25,
+                                    right: width / 2 - 150,
+                                    child: Entry.scale(
+                                      delay: Duration(milliseconds: 500),
+                                      child: DefaultTextStyle(
+                                        style: TextStyle(
+                                          fontSize: 120,
+                                          color: colorSkyBlue,
+                                          fontFamily: 'MoreSugar',
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        child: OutlinedText(
+                                          child: Text(totalRight.toString()),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            );
-                          },
+                                ],
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                      Positioned(
-                        bottom: 25,
-                        left: 25,
-                        child: AnswerWidget(answer: leftAnswer),
-                      ),
-                      Positioned(
-                        bottom: 25,
-                        right: 25,
-                        child: AnswerWidget(answer: rightAnswer),
-                      ),
-                    ],
-                  );
-                }),
-              ),
-            )),
-        Positioned(
-          top: 25,
-          right: 25,
-          child: SizedBox(
-            width: 250,
-            height: 250,
-            child: FittedBox(
-              fit: BoxFit.fill,
-              child: GameRoundCounter(
-                round: widget.round,
+                        Positioned(
+                          bottom: 25,
+                          left: 25,
+                          child: AnswerWidget(answer: leftAnswer),
+                        ),
+                        Positioned(
+                          bottom: 25,
+                          right: 25,
+                          child: AnswerWidget(answer: rightAnswer),
+                        ),
+                      ],
+                    );
+                  }),
+                ),
+              )),
+          Positioned.fill(
+            child: ListenableBuilder(
+              listenable: _controller,
+              builder: (context, child) {
+                return RoundCountdown(
+                    value: _controller.value, duration: _controller.duration!);
+              },
+            ),
+          ),
+          Positioned(
+            top: 25,
+            right: 25,
+            child: SizedBox(
+              width: 250,
+              height: 250,
+              child: FittedBox(
+                fit: BoxFit.fill,
+                child: GameRoundCounter(
+                  round: widget.round,
+                ),
               ),
             ),
           ),
-        ),
-        Positioned(
-          top: 0,
-          left: 400,
-          right: 400,
-          child: Entry.scale(
-            delay: Duration(milliseconds: 500),
-            inProperties: [
-              FractionallyTranslateProperty(Offset(0, -1), Offset(0, 0)),
-            ],
-            outProperties: [
-              FractionallyTranslateProperty(Offset(0, 0), Offset(0, -1)),
-            ],
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 15,
-                    spreadRadius: 10,
+          Positioned(
+            top: 0,
+            left: 400,
+            right: 400,
+            child: Entry.scale(
+              delay: Duration(milliseconds: 500),
+              inProperties: [
+                FractionallyTranslateProperty(Offset(0, -1), Offset(0, 0)),
+              ],
+              outProperties: [
+                FractionallyTranslateProperty(Offset(0, 0), Offset(0, -1)),
+              ],
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(50),
+                    bottomRight: Radius.circular(50),
                   ),
-                ],
-              ),
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(
-                horizontal: 100,
-                vertical: 50,
-              ),
-              child: FittedBox(
-                fit: BoxFit.contain,
-                child: DefaultTextStyle(
-                  style: TextStyle(
-                      fontSize: 80,
-                      color: colorStrongYellow,
-                      fontFamily: 'MoreSugar'),
-                  child: Entry.scale(
-                    delay: Duration(milliseconds: 1000),
-                    child: OutlinedText(
-                      child: Text(gameRound.question),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 15,
+                      spreadRadius: 10,
+                    ),
+                  ],
+                ),
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 100,
+                  vertical: 50,
+                ),
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: DefaultTextStyle(
+                    style: TextStyle(
+                        fontSize: 80,
+                        color: colorStrongYellow,
+                        fontFamily: 'MoreSugar'),
+                    child: Entry.scale(
+                      delay: Duration(milliseconds: 1000),
+                      child: OutlinedText(
+                        child: Text(
+                          gameRound.question,
+                          maxLines: 3,
+                          softWrap: true,
+                          overflow: TextOverflow.visible,
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
           ),
-        ),
-        Positioned(
-          top: 50,
-          left: 50,
-          child: MenuIconButton(
-              onPressed: () {
-                GameSessionScreen.of(context).pause(true);
-              },
-              icon: Icon(Icons.pause)),
-        ),
-      ],
+          Positioned(
+            top: 50,
+            left: 50,
+            child: MenuIconButton(
+                onPressed: () {
+                  GameSessionScreen.of(context).pause(true);
+                },
+                icon: Icon(Icons.pause)),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -31,6 +31,14 @@ Future<void> loadBasicResources() async {
     ...LoadingScene.loadingAnimations,
     bgmPauseMenu,
     bgmSettings,
+    countdown1,
+    countdown2,
+    countdown3,
+    countdown4,
+    countdown5,
+    tamaHover,
+    amelHover,
+    amelPermission,
   ]);
 }
 

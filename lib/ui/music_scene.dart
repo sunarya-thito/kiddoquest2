@@ -1,7 +1,14 @@
+import 'dart:async';
+import 'dart:js_interop';
+
 import 'package:animation_toolkit/animation_toolkit.dart';
+import 'package:audioplayers/audioplayers.dart' as ap;
+import 'package:audioplayers/audioplayers.dart';
 import 'package:data_widget/data_widget.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kiddoquest2/assets/asset_manager.dart';
+import 'package:kiddoquest2/assets/audios.dart';
+import 'package:web/web.dart';
 
 class MusicManager extends StatefulWidget {
   final Widget child;
@@ -125,6 +132,220 @@ class MusicScene extends StatefulWidget {
 
   @override
   State<MusicScene> createState() => _MusicSceneState();
+}
+
+// Map<String, AudioPlayer> _sfxGroups = {};
+Map<String, ap.AudioContext> _sfxGroups = {};
+
+Future<void> playSound(AudioAsset audio, [String group = 'default']) async {
+  // AudioPlayer? player = _sfxGroups[group];
+  // if (player == null) {
+  //   player = AudioPlayer();
+  //   _sfxGroups[group] = player;
+  // }
+  AudioPlayer player = AudioPlayer();
+  // await player.pause();
+  // await player.setSourceBytes(audio.bytes);
+  // await player.seek(Duration.zero);
+  // await player.resume();
+  ap.AudioContext? context = _sfxGroups[group];
+  if (context == null) {
+    context = ap.AudioContext();
+    _sfxGroups[group] = context;
+  }
+  await player.play(BytesSource(audio.bytes), ctx: _sfxGroups[group]);
+  Duration? duration = await player.getDuration();
+  print('Playing sound ($group): ${audio.name} (duration: $duration)');
+  await Future.delayed((await player.getDuration())!);
+  await player.dispose();
+}
+
+Future<void> playVoiceline(AudioAsset audio) {
+  return playSound(audio, 'voiceline');
+}
+
+void playUISound(AudioAsset audio) {
+  playSound(audio, 'ui');
+}
+
+enum GameCharacter { tama, amel }
+
+Future<void> playCountdown(int count) {
+  switch (count) {
+    case 5:
+      return playSound(countdown5, 'voiceline');
+    case 4:
+      return playSound(countdown4, 'voiceline');
+    case 3:
+      return playSound(countdown3, 'voiceline');
+    case 2:
+      return playSound(countdown2, 'voiceline');
+    case 1:
+      return playSound(countdown1, 'voiceline');
+    default:
+      return Future.value();
+  }
+}
+
+Future<void> playCountSound(int count, GameCharacter character,
+    [String group = 'default']) async {
+  List<AudioAsset> singles;
+  AudioAsset belasan;
+  AudioAsset puluhan;
+  AudioAsset ten;
+  AudioAsset eleven;
+  if (character == GameCharacter.tama) {
+    singles = [
+      tamaSatu,
+      tamaDua,
+      tamaTiga,
+      tamaEmpat,
+      tamaLima,
+      tamaEnam,
+      tamaTujuh,
+      tamaDelapan,
+      tamaSembilan,
+    ];
+    belasan = tamaBelas;
+    puluhan = tamaPuluh;
+    ten = tamaSepuluh;
+    eleven = tamaSebelas;
+  } else {
+    // TODO amel
+    singles = [];
+    belasan = tamaBelas;
+    puluhan = tamaPuluh;
+    ten = tamaSepuluh;
+    eleven = tamaSebelas;
+  }
+  if (count < 10) {
+    await playSound(singles[count - 1], group);
+  } else if (count == 10) {
+    await playSound(ten, group);
+  } else if (count == 11) {
+    await playSound(eleven, group);
+  } else if (count < 20) {
+    await playSound(singles[count - 11], group);
+    await playSound(belasan, group);
+  } else if (count % 10 == 0) {
+    await playSound(singles[count ~/ 10 - 1], group);
+    await playSound(ten, group);
+  }
+}
+
+Future<void> playRoundSound(int count, GameCharacter character,
+    [String group = 'voiceline']) async {
+  List<AudioAsset> singles;
+  AudioAsset prefix;
+  AudioAsset satu;
+  AudioAsset belasan;
+  AudioAsset puluhan;
+  AudioAsset ten;
+  AudioAsset eleven;
+  if (character == GameCharacter.tama) {
+    prefix = tamaBabakKe;
+    satu = tamaRound1;
+    singles = [
+      tamaSatu,
+      tamaDua,
+      tamaTiga,
+      tamaEmpat,
+      tamaLima,
+      tamaEnam,
+      tamaTujuh,
+      tamaDelapan,
+      tamaSembilan,
+    ];
+    belasan = tamaBelas;
+    puluhan = tamaPuluh;
+    ten = tamaSepuluh;
+    eleven = tamaSebelas;
+  } else {
+    // TODO amel
+    prefix = tamaBabakKe;
+    satu = tamaRound1;
+    singles = [];
+    belasan = tamaBelas;
+    puluhan = tamaPuluh;
+    ten = tamaSepuluh;
+    eleven = tamaSebelas;
+  }
+  if (count == 1) {
+    await playSound(satu, group);
+    return;
+  }
+  await playSound(tamaBabakKe);
+  if (count < 10) {
+    await playSound(singles[count - 1], group);
+  } else if (count == 10) {
+    await playSound(ten, group);
+  } else if (count == 11) {
+    await playSound(eleven, group);
+  } else if (count < 20) {
+    await playSound(singles[count - 11], group);
+    await playSound(belasan, group);
+  } else if (count % 10 == 0) {
+    await playSound(singles[count ~/ 10 - 1], group);
+    await playSound(ten, group);
+  }
+}
+
+SpeechSynthesisVoice? _indonesianVoice;
+
+bool prepareTTS() {
+  final synth = window.speechSynthesis;
+  if (_indonesianVoice == null) {
+    for (var voice in synth.getVoices().toDart) {
+      print('Voice: ${voice.name} (${voice.lang})');
+      if (voice.lang == 'id-ID') {
+        _indonesianVoice = voice;
+        break;
+      }
+    }
+  }
+  if (_indonesianVoice == null) {
+    print('No Indonesian voice found');
+  }
+  return _indonesianVoice != null;
+}
+
+Future<void> playTTS(String text) async {
+  prepareTTS();
+  print('Playing TTS: $text');
+  var utterThis = SpeechSynthesisUtterance(text);
+  Completer<void> completer = Completer();
+  void onEnd() {
+    completer.complete();
+  }
+
+  utterThis.onend = onEnd.toJS;
+  var synth = window.speechSynthesis;
+  if (_indonesianVoice != null) {
+    utterThis.voice = _indonesianVoice;
+    utterThis.lang = 'id-ID';
+    utterThis.rate = 1.0;
+    synth.speak(utterThis);
+  } else {
+    print('No Indonesian voice found');
+    return;
+  }
+  return completer.future;
+}
+
+abstract class SoundPart {
+  const SoundPart();
+}
+
+class SoundAssetPart extends SoundPart {
+  final AudioAsset audio;
+
+  const SoundAssetPart(this.audio);
+}
+
+class SilentPart extends SoundPart {
+  final Duration duration;
+
+  const SilentPart(this.duration);
 }
 
 class _MusicSceneState extends State<MusicScene> implements _MusicContainer {

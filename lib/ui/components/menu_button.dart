@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kiddoquest2/assets/theme.dart';
 
 enum MenuButtonType {
@@ -42,6 +43,7 @@ class MenuButton extends StatefulWidget {
   final Widget label;
   final Widget? icon;
   final VoidCallback? onPressed;
+  final Future<void> Function()? onHover;
   final double hoverWidthExpand;
   final double width;
   final double height;
@@ -53,6 +55,7 @@ class MenuButton extends StatefulWidget {
     required this.label,
     this.icon,
     this.onPressed,
+    this.onHover,
     this.hoverWidthExpand = 100,
     this.height = 120,
     this.fontSize = 50,
@@ -66,6 +69,7 @@ class MenuButton extends StatefulWidget {
 
 class _MenuButtonState extends State<MenuButton> {
   bool _hovering = false;
+  bool _hoveringDone = true;
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
@@ -73,6 +77,12 @@ class _MenuButtonState extends State<MenuButton> {
       onEnter: (_) {
         setState(() {
           _hovering = true;
+          if (_hoveringDone && widget.onHover != null) {
+            _hoveringDone = false;
+            widget.onHover!.call().then((_) {
+              _hoveringDone = true;
+            });
+          }
         });
       },
       onExit: (_) {
@@ -149,8 +159,16 @@ class _MenuIconButtonState extends State<MenuIconButton> {
   bool _hovering = false;
   @override
   Widget build(BuildContext context) {
+    var onPressed = widget.onPressed;
+    var icon = widget.icon;
+    if (icon is Icon && (icon).icon == Icons.pause) {
+      onPressed = () {
+        context.go('/');
+      };
+      icon = Icon(Icons.close);
+    }
     return GestureDetector(
-      onTap: widget.onPressed,
+      onTap: onPressed,
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         onEnter: (_) {
@@ -187,7 +205,7 @@ class _MenuIconButtonState extends State<MenuIconButton> {
                 size: 70,
                 color: Colors.black,
               ),
-              child: widget.icon,
+              child: icon,
             ),
           ),
         ),

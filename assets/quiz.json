@@ -1,0 +1,502 @@
+{
+  "name": "QuizAnakTK",
+  "type": "competitive",
+  "defaultRoundDuration": 10,
+  "rounds": [
+    {
+      "question": "Hewan apa yang berbunyi 'guk-guk'?",
+      "correctAnswer": {
+        "text": "Anjing",
+        "image": "https://example.com/anjing.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Kucing",
+        "image": "https://example.com/kucing.jpg"
+      }
+    },
+    {
+      "question": "Apa warna langit di siang hari?",
+      "correctAnswer": {
+        "text": "Biru",
+        "image": "https://example.com/biru.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Merah",
+        "image": "https://example.com/merah.jpg"
+      }
+    },
+    {
+      "question": "Buah apa yang berwarna merah dan manis?",
+      "correctAnswer": {
+        "text": "Apel",
+        "image": "https://example.com/apel.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Pisang",
+        "image": "https://example.com/pisang.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang bisa terbang?",
+      "correctAnswer": {
+        "text": "Burung",
+        "image": "https://example.com/burung.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Gajah",
+        "image": "https://example.com/gajah.jpg"
+      }
+    },
+    {
+      "question": "Angka setelah 2 adalah?",
+      "correctAnswer": {
+        "text": "3",
+        "image": "https://example.com/3.jpg"
+      },
+      "wrongAnswer": {
+        "text": "4",
+        "image": "https://example.com/4.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang berbunyi 'meong'?",
+      "correctAnswer": {
+        "text": "Kucing",
+        "image": "https://example.com/kucing.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Anjing",
+        "image": "https://example.com/anjing.jpg"
+      }
+    },
+    {
+      "question": "Benda apa yang digunakan untuk menulis?",
+      "correctAnswer": {
+        "text": "Pensil",
+        "image": "https://example.com/pensil.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Sepatu",
+        "image": "https://example.com/sepatu.jpg"
+      }
+    },
+    {
+      "question": "Apa warna daun?",
+      "correctAnswer": {
+        "text": "Hijau",
+        "image": "https://example.com/hijau.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Kuning",
+        "image": "https://example.com/kuning.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang memiliki belalai?",
+      "correctAnswer": {
+        "text": "Gajah",
+        "image": "https://example.com/gajah.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Kambing",
+        "image": "https://example.com/kambing.jpg"
+      }
+    },
+    {
+      "question": "Apa yang kita minum setiap hari?",
+      "correctAnswer": {
+        "text": "Air",
+        "image": "https://example.com/air.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Pasir",
+        "image": "https://example.com/pasir.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang berbunyi 'kwek-kwek'?",
+      "correctAnswer": {
+        "text": "Bebek",
+        "image": "https://example.com/bebek.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Ayam",
+        "image": "https://example.com/ayam.jpg"
+      }
+    },
+    {
+      "question": "Apa warna buah pisang yang matang?",
+      "correctAnswer": {
+        "text": "Kuning",
+        "image": "https://example.com/kuning.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Hijau",
+        "image": "https://example.com/hijau.jpg"
+      }
+    },
+    {
+      "question": "Benda apa yang digunakan untuk makan nasi?",
+      "correctAnswer": {
+        "text": "Sendok",
+        "image": "https://example.com/sendok.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Sapu",
+        "image": "https://example.com/sapu.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang memiliki cangkang?",
+      "correctAnswer": {
+        "text": "Kura-kura",
+        "image": "https://example.com/kura-kura.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Kelinci",
+        "image": "https://example.com/kelinci.jpg"
+      }
+    },
+    {
+      "question": "Angka setelah 4 adalah?",
+      "correctAnswer": {
+        "text": "5",
+        "image": "https://example.com/5.jpg"
+      },
+      "wrongAnswer": {
+        "text": "6",
+        "image": "https://example.com/6.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang suka makan wortel?",
+      "correctAnswer": {
+        "text": "Kelinci",
+        "image": "https://example.com/kelinci.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Gajah",
+        "image": "https://example.com/gajah.jpg"
+      }
+    },
+    {
+      "question": "Apa warna matahari saat terbenam?",
+      "correctAnswer": {
+        "text": "Oranye",
+        "image": "https://example.com/oranye.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Biru",
+        "image": "https://example.com/biru.jpg"
+      }
+    },
+    {
+      "question": "Benda apa yang digunakan untuk menyapu lantai?",
+      "correctAnswer": {
+        "text": "Sapu",
+        "image": "https://example.com/sapu.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Bantal",
+        "image": "https://example.com/bantal.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang bisa berenang di air?",
+      "correctAnswer": {
+        "text": "Ikan",
+        "image": "https://example.com/ikan.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Burung",
+        "image": "https://example.com/burung.jpg"
+      }
+    },
+    {
+      "question": "Buah apa yang memiliki duri di kulitnya?",
+      "correctAnswer": {
+        "text": "Durian",
+        "image": "https://example.com/durian.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Apel",
+        "image": "https://example.com/apel.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang memiliki leher panjang?",
+      "correctAnswer": {
+        "text": "Jerapah",
+        "image": "https://example.com/jerapah.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Gajah",
+        "image": "https://example.com/gajah.jpg"
+      }
+    },
+    {
+      "question": "Apa warna susu?",
+      "correctAnswer": {
+        "text": "Putih",
+        "image": "https://example.com/putih.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Cokelat",
+        "image": "https://example.com/cokelat.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang memiliki tanduk?",
+      "correctAnswer": {
+        "text": "Kambing",
+        "image": "https://example.com/kambing.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Kucing",
+        "image": "https://example.com/kucing.jpg"
+      }
+    },
+    {
+      "question": "Buah apa yang berwarna kuning dan panjang?",
+      "correctAnswer": {
+        "text": "Pisang",
+        "image": "https://example.com/pisang.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Jeruk",
+        "image": "https://example.com/jeruk.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang suka madu?",
+      "correctAnswer": {
+        "text": "Beruang",
+        "image": "https://example.com/beruang.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Kelinci",
+        "image": "https://example.com/kelinci.jpg"
+      }
+    },
+    {
+      "question": "Apa warna daun saat musim gugur?",
+      "correctAnswer": {
+        "text": "Kuning",
+        "image": "https://example.com/kuning.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Hijau",
+        "image": "https://example.com/hijau.jpg"
+      }
+    },
+    {
+      "question": "Apa warna api?",
+      "correctAnswer": {
+        "text": "Merah",
+        "image": "https://example.com/merah.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Biru",
+        "image": "https://example.com/biru.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang memiliki bulu lembut dan telinga panjang?",
+      "correctAnswer": {
+        "text": "Kelinci",
+        "image": "https://example.com/kelinci.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Ayam",
+        "image": "https://example.com/ayam.jpg"
+      }
+    },
+    {
+      "question": "Benda apa yang digunakan untuk tidur?",
+      "correctAnswer": {
+        "text": "Bantal",
+        "image": "https://example.com/bantal.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Sapu",
+        "image": "https://example.com/sapu.jpg"
+      }
+    },
+    {
+      "question": "Buah apa yang rasanya asam dan warnanya hijau?",
+      "correctAnswer": {
+        "text": "Jeruk nipis",
+        "image": "https://example.com/jeruknipis.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Pisang",
+        "image": "https://example.com/pisang.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang bertelur dan bisa berenang?",
+      "correctAnswer": {
+        "text": "Bebek",
+        "image": "https://example.com/bebek.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Kucing",
+        "image": "https://example.com/kucing.jpg"
+      }
+    },
+    {
+      "question": "Benda apa yang digunakan untuk melihat waktu?",
+      "correctAnswer": {
+        "text": "Jam",
+        "image": "https://example.com/jam.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Bola",
+        "image": "https://example.com/bola.jpg"
+      }
+    },
+    {
+      "question": "Apa warna wortel?",
+      "correctAnswer": {
+        "text": "Oranye",
+        "image": "https://example.com/oranye.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Merah",
+        "image": "https://example.com/merah.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang berbunyi 'kuk-kuruyuk'?",
+      "correctAnswer": {
+        "text": "Ayam",
+        "image": "https://example.com/ayam.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Bebek",
+        "image": "https://example.com/bebek.jpg"
+      }
+    },
+    {
+      "question": "Buah apa yang memiliki biji kecil dan kulitnya ungu?",
+      "correctAnswer": {
+        "text": "Anggur",
+        "image": "https://example.com/anggur.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Jeruk",
+        "image": "https://example.com/jeruk.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang suka makan bambu?",
+      "correctAnswer": {
+        "text": "Panda",
+        "image": "https://example.com/panda.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Beruang",
+        "image": "https://example.com/beruang.jpg"
+      }
+    },
+    {
+      "question": "Apa warna darah?",
+      "correctAnswer": {
+        "text": "Merah",
+        "image": "https://example.com/merah.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Hijau",
+        "image": "https://example.com/hijau.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang memiliki sayap tetapi tidak bisa terbang?",
+      "correctAnswer": {
+        "text": "Ayam",
+        "image": "https://example.com/ayam.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Burung",
+        "image": "https://example.com/burung.jpg"
+      }
+    },
+    {
+      "question": "Benda apa yang digunakan untuk memotong kertas?",
+      "correctAnswer": {
+        "text": "Gunting",
+        "image": "https://example.com/gunting.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Pensil",
+        "image": "https://example.com/pensil.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang memiliki ekor panjang dan suka memanjat pohon?",
+      "correctAnswer": {
+        "text": "Monyet",
+        "image": "https://example.com/monyet.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Kelinci",
+        "image": "https://example.com/kelinci.jpg"
+      }
+    },
+    {
+      "question": "Buah apa yang memiliki kulit berduri dan harum?",
+      "correctAnswer": {
+        "text": "Durian",
+        "image": "https://example.com/durian.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Mangga",
+        "image": "https://example.com/mangga.jpg"
+      }
+    },
+    {
+      "question": "Apa warna pelangi?",
+      "correctAnswer": {
+        "text": "Berwarna-warni",
+        "image": "https://example.com/pelangi.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Hitam",
+        "image": "https://example.com/hitam.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang memiliki sisik dan hidup di air?",
+      "correctAnswer": {
+        "text": "Ikan",
+        "image": "https://example.com/ikan.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Burung",
+        "image": "https://example.com/burung.jpg"
+      }
+    },
+    {
+      "question": "Benda apa yang digunakan untuk menulis di papan tulis?",
+      "correctAnswer": {
+        "text": "Kapur",
+        "image": "https://example.com/kapur.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Pensil",
+        "image": "https://example.com/pensil.jpg"
+      }
+    },
+    {
+      "question": "Hewan apa yang berbunyi 'embek'?",
+      "correctAnswer": {
+        "text": "Kambing",
+        "image": "https://example.com/kambing.jpg"
+      },
+      "wrongAnswer": {
+        "text": "Sapi",
+        "image": "https://example.com/sapi.jpg"
+      }
+    }
+  ]
+}

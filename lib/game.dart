@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:face_api_web/face_api_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:kiddoquest2/assets/asset_manager.dart';
 import 'package:kiddoquest2/assets/audios.dart';
 import 'package:kiddoquest2/game_config.dart';
 import 'package:kiddoquest2/pdf_generator.dart';
+import 'package:kiddoquest2/ui/music_scene.dart';
 
 final List<Character> characters = [
   Character('Putri Pelangi', audioNamePutriPelangi, audioAnnouncePutriPelangi,
@@ -84,6 +87,7 @@ class CompetitiveGame extends Game {
       face: candidate.score,
       faceImage: candidate.image,
     );
+    print('Creating player with face score: ${player.face}');
     players.value = [...players.value, player];
     return player;
   }
@@ -113,6 +117,21 @@ class GameRound {
   final ValueNotifier<Duration> countdown = ValueNotifier(Duration.zero);
 
   GameRound(this.question, this.wrongAnswer, this.correctAnswer, this.duration);
+
+  Future<void> playRoundTTS() async {
+    Random random = Random();
+    if (random.nextBool()) {
+      await playTTS(
+          '$question... ${correctAnswer.content.textContent} atau ${wrongAnswer.content.textContent}');
+    } else {
+      await playTTS(
+          '$question... ${wrongAnswer.content.textContent} atau ${correctAnswer.content.textContent}');
+    }
+  }
+
+  Future<void> playCorrectTTS() async {
+    await playTTS(correctAnswer.content.textContent!);
+  }
 }
 
 class GameRoundAnswer {

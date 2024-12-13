@@ -6,11 +6,13 @@ import 'package:animation_toolkit/animation_toolkit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kiddoquest2/assets/asset_manager.dart';
+import 'package:kiddoquest2/assets/audios.dart';
 import 'package:kiddoquest2/assets/images.dart';
 import 'package:kiddoquest2/assets/theme.dart';
 import 'package:kiddoquest2/game.dart';
 import 'package:kiddoquest2/ui/components/outlined_text.dart';
 import 'package:kiddoquest2/ui/game_app.dart';
+import 'package:kiddoquest2/ui/music_scene.dart';
 import 'package:kiddoquest2/ui/screens/competitive/players_screen.dart';
 import 'package:kiddoquest2/ui/screens/game_session_screen.dart';
 
@@ -44,6 +46,25 @@ final List<ImageAsset> imageFrames = [
 ];
 
 class _GameOverScreenState extends State<GameOverScreen> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final game = GameSessionScreen.of(context).game;
+    List<Player> players = List.of(game.players.value);
+    players.sort((a, b) => (b as CompetitivePlayer)
+        .score
+        .value
+        .compareTo((a as CompetitivePlayer).score.value));
+    Player? first = players.isNotEmpty ? players.first : null;
+    if (first != null) {
+      Future.delayed(Duration(milliseconds: 1300), () async {
+        await playVoiceline(tamaGameOverSingleWinnerPrefix);
+        await playVoiceline(first.character.value!.nameAnnounceSound);
+        await playVoiceline(tamaGameOverSingleWinnerSuffix);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final game = GameSessionScreen.of(context).game;
@@ -132,11 +153,11 @@ class _GameOverScreenState extends State<GameOverScreen> {
               },
               icon: Icon(Icons.close)),
         ),
-        Positioned(
-          bottom: 80,
-          right: 80,
-          child: DownloadButton(game: game),
-        ),
+        // Positioned(
+        //   bottom: 80,
+        //   right: 80,
+        //   child: DownloadButton(game: game),
+        // ),
       ],
     );
   }

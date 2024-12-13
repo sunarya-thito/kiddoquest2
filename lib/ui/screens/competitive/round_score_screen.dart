@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kiddoquest2/assets/audios.dart';
 import 'package:kiddoquest2/game.dart';
+import 'package:kiddoquest2/ui/music_scene.dart';
 import 'package:kiddoquest2/ui/screens/competitive/player_list_screen.dart';
 import 'package:kiddoquest2/ui/screens/competitive/players_screen.dart';
 import 'package:kiddoquest2/ui/screens/competitive/round_screen.dart';
@@ -12,16 +14,52 @@ import '../../components/outlined_text.dart';
 import '../../slide_loading_scene.dart';
 import '../game_session_screen.dart';
 
-class RoundScoreScreen extends StatelessWidget {
+class RoundScoreScreen extends StatefulWidget {
   final int round;
   final FutureOr<Widget> onContinue;
   final bool slide;
+  final bool hasNextRound;
 
   const RoundScoreScreen(
       {super.key,
       required this.round,
       required this.onContinue,
+      required this.hasNextRound,
       this.slide = true});
+
+  @override
+  State<RoundScoreScreen> createState() => _RoundScoreScreenState();
+}
+
+class _RoundScoreScreenState extends State<RoundScoreScreen> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    var players = GameSessionScreen.of(context).game.players.value;
+    Future.delayed(Duration(seconds: 1), () async {
+      if (!widget.hasNextRound) {
+        await playVoiceline(tamaGameOver);
+        return;
+      }
+      int totalCorrect = 0;
+      Character? winner;
+      for (final player in players) {
+        if ((player as CompetitivePlayer).currentRoundCorrect.value) {
+          totalCorrect++;
+          winner = player.character.value;
+        }
+      }
+      if (totalCorrect == 0) {
+        playVoiceline(tamaRoundEndNoWinner);
+      } else if (totalCorrect == 1) {
+        await playVoiceline(tamaRoundEndSingleWinnerPrefix);
+        await playVoiceline(winner!.nameSound);
+        await playVoiceline(tamaRoundEndSingleWinnerSuffix);
+      } else {
+        await playVoiceline(tamaRoundEndMultiWinner);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +87,7 @@ class RoundScoreScreen extends StatelessWidget {
             child: FittedBox(
               fit: BoxFit.fill,
               child: GameRoundCounter(
-                round: round,
+                round: widget.round,
               ),
             ),
           ),
@@ -97,16 +135,16 @@ class RoundScoreScreen extends StatelessWidget {
                   (player as CompetitivePlayer).score.value +=
                       player.currentRoundScore.value;
                 }
-                if (slide) {
+                if (widget.slide) {
                   GameSessionScreen.of(context).nextScreen(
-                    onContinue,
+                    widget.onContinue,
                     delay: Duration.zero,
                     duration: Duration(milliseconds: 500),
                     reverseDuration: Duration(milliseconds: 500),
                     loadingScreen: SlideLoadingScene(),
                   );
                 } else {
-                  GameSessionScreen.of(context).nextScreen(onContinue);
+                  GameSessionScreen.of(context).nextScreen(widget.onContinue);
                 }
               },
             ),

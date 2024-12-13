@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kiddoquest2/assets/audios.dart';
 import 'package:kiddoquest2/game.dart';
 import 'package:kiddoquest2/ui/components/curly_circle.dart';
 import 'package:kiddoquest2/ui/components/outlined_text.dart';
+import 'package:kiddoquest2/ui/music_scene.dart';
 import 'package:kiddoquest2/ui/screens/competitive/game_round_screen.dart';
 import 'package:kiddoquest2/ui/screens/competitive/players_screen.dart';
 
@@ -44,6 +46,16 @@ class _AnswerRevealScreenState extends State<AnswerRevealScreen>
         loadingScreen: SlideLoadingScene(),
       );
     });
+    Future.delayed(Duration(seconds: 1), () async {
+      await playVoiceline(tamaRoundEndReveal);
+      await widget.gameRound.playCorrectTTS();
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -94,8 +106,14 @@ class _AnswerRevealScreenState extends State<AnswerRevealScreen>
                     fontSize: 100,
                     color: Colors.white,
                     fontFamily: 'MoreSugar'),
+                textAlign: TextAlign.center,
                 child: OutlinedText(
-                  child: Text(widget.gameRound.question),
+                  child: Text(
+                    widget.gameRound.question,
+                    maxLines: 3,
+                    softWrap: true,
+                    overflow: TextOverflow.visible,
+                  ),
                 ),
               ),
             ),

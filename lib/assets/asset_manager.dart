@@ -74,14 +74,15 @@ class AudioAsset extends BlobAsset {
 
   @override
   Future<void> _onLoad() async {
+    if (!loop) return;
     if (!audioCanBeLoaded) {
       audioLoadQueue.add(_onLoad);
       return;
     }
     _player = AudioPlayer();
-    await _player!.setSourceBytes(bytes);
+    _player!.setSourceBytes(bytes);
     if (loop) {
-      await _player!.setReleaseMode(ReleaseMode.loop);
+      _player!.setReleaseMode(ReleaseMode.loop);
     }
   }
 
@@ -128,8 +129,8 @@ class ImageAsset extends BlobAsset {
     return _image!;
   }
 
-  Image createImage({BoxFit? fit}) {
-    return Image.memory(bytes, fit: fit);
+  Image createImage({BoxFit? fit, double? width, double? height}) {
+    return Image.memory(bytes, fit: fit, width: width, height: height);
   }
 
   @override

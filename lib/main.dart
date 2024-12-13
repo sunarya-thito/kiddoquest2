@@ -7,6 +7,9 @@ import 'package:kiddoquest2/ui/screens/studio_logo_screen.dart';
 import 'package:kiddoquest2/util.dart';
 
 main() async {
+  while (!prepareTTS()) {
+    await Future.delayed(Duration(milliseconds: 100));
+  }
   GoRouter.optionURLReflectsImperativeAPIs = true;
   WidgetsFlutterBinding.ensureInitialized();
   await faceapi.loadModel(FaceDetectionModel.tinyFace);

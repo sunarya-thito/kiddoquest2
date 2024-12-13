@@ -1,0 +1,1 @@
+flutter build web --base-href "/kiddoquest2/" --wasm --output=docs

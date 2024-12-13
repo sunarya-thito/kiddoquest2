@@ -114,3 +114,75 @@ AudioAsset bgmGameMode2 = AudioAsset('clapandyell', true);
 AudioAsset bgmSettings = AudioAsset('psychedelic', true);
 AudioAsset bgmPauseMenu = AudioAsset('jazzcomedy', true);
 AudioAsset bgmGameMode1Intro = AudioAsset('thelounge', true);
+AudioAsset bgmVictory = AudioAsset('highoctane', true);
+
+// voicelines (tama)
+AudioAsset tamaBabakKe = AudioAsset('tama_babak_ke');
+AudioAsset tamaBelas = AudioAsset('tama_belas');
+AudioAsset tamaDelapan = AudioAsset('tama_delapan');
+AudioAsset tamaDua = AudioAsset('tama_dua');
+AudioAsset tamaEmpat = AudioAsset('tama_empat');
+AudioAsset tamaEnam = AudioAsset('tama_enam');
+AudioAsset tamaGameOver = AudioAsset('tama_game_over');
+AudioAsset tamaGameOverSingleWinnerPrefix =
+    AudioAsset('tama_game_over_single_winner_prefix');
+AudioAsset tamaGameOverSingleWinnerSuffix =
+    AudioAsset('tama_game_over_single_winner_suffix');
+AudioAsset tamaGameStart = AudioAsset('tama_game_start');
+AudioAsset tamaHover = AudioAsset('tama_hover');
+AudioAsset tamaLima = AudioAsset('tama_lima');
+AudioAsset tamaPlayer = AudioAsset('tama_player');
+AudioAsset tamaPlayerConfirmation = AudioAsset('tama_player_confirmation');
+AudioAsset tamaPlayerIntroduction = AudioAsset('tama_player_introduction');
+AudioAsset tamaPuluh = AudioAsset('tama_puluh');
+AudioAsset tamaRound1 = AudioAsset('tama_round_1');
+AudioAsset tamaRoundEndMultiWinner = AudioAsset('tama_round_end_multi_winner');
+AudioAsset tamaRoundEndNoWinner = AudioAsset('tama_round_end_no_winner');
+AudioAsset tamaRoundEndReveal = AudioAsset('tama_round_end_reveal');
+AudioAsset tamaRoundEndSingleWinnerPrefix =
+    AudioAsset('tama_round_end_single_winner_prefix');
+AudioAsset tamaRoundEndSingleWinnerSuffix =
+    AudioAsset('tama_round_end_single_winner_suffix');
+AudioAsset tamaSatu = AudioAsset('tama_satu');
+AudioAsset tamaSembilan = AudioAsset('tama_sembilan');
+AudioAsset tamaSebelas = AudioAsset('tama_sebelas');
+AudioAsset tamaSepuluh = AudioAsset('tama_sepuluh');
+AudioAsset tamaTiga = AudioAsset('tama_tiga');
+AudioAsset tamaTujuh = AudioAsset('tama_tujuh');
+
+AudioAsset countdown1 = AudioAsset('countdown_1');
+AudioAsset countdown2 = AudioAsset('countdown_2');
+AudioAsset countdown3 = AudioAsset('countdown_3');
+AudioAsset countdown4 = AudioAsset('countdown_4');
+AudioAsset countdown5 = AudioAsset('countdown_5');
+
+// voice lines
+AudioAsset amel1 = AudioAsset('amel_1');
+AudioAsset amel2 = AudioAsset('amel_2');
+AudioAsset amel3 = AudioAsset('amel_3');
+AudioAsset amel4 = AudioAsset('amel_4');
+AudioAsset amel5 = AudioAsset('amel_5');
+AudioAsset amel6 = AudioAsset('amel_6');
+AudioAsset amel7 = AudioAsset('amel_7');
+AudioAsset amel8 = AudioAsset('amel_8');
+AudioAsset amel9 = AudioAsset('amel_9');
+AudioAsset amel10 = AudioAsset('amel_10');
+AudioAsset amel11 = AudioAsset('amel_11');
+AudioAsset amelBabakKe = AudioAsset('amel_babak_ke');
+AudioAsset amelBelas = AudioAsset('amel_belas');
+AudioAsset amelConfirmation = AudioAsset('amel_confirmation');
+AudioAsset amelDrawAnswer = AudioAsset('amel_draw_answer');
+AudioAsset amelGameOver = AudioAsset('amel_game_over');
+AudioAsset amelGameOverWin = AudioAsset('amel_game_over_win');
+AudioAsset amelGameOverWinPerfect = AudioAsset('amel_game_over_win_perfect');
+AudioAsset amelHover = AudioAsset('amel_hover');
+AudioAsset amelPermission = AudioAsset('amel_permission');
+AudioAsset amelPuluh = AudioAsset('amel_puluh');
+AudioAsset amelReveal = AudioAsset('amel_reveal');
+AudioAsset amelRound1 = AudioAsset('amel_round_1');
+AudioAsset amelRoundEndLose = AudioAsset('amel_round_end_lose');
+AudioAsset amelRoundEndLoseContinue =
+    AudioAsset('amel_round_end_lose_continue');
+AudioAsset amelRoundEndWin = AudioAsset('amel_round_end_win');
+AudioAsset amelRoundEndWinContinue = AudioAsset('amel_round_end_win_continue');
+AudioAsset amelStart = AudioAsset('amel_start');
